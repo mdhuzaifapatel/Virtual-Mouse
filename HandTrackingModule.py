@@ -6,15 +6,14 @@ import numpy as np
 
 
 class handDetector():
-    def _init_(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
+    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
         self.maxHands = maxHands
         self.detectionCon = detectionCon
         self.trackCon = trackCon
 
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands,
-                                        self.detectionCon, self.trackCon)
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands,self.detectionCon, self.trackCon)
         self.mpDraw = mp.solutions.drawing_utils
         self.tipIds = [4, 8, 12, 16, 20]
 
@@ -26,8 +25,7 @@ class handDetector():
         if self.results.multi_hand_landmarks:
             for handLms in self.results.multi_hand_landmarks:
                 if draw:
-                    self.mpDraw.draw_landmarks(img, handLms,
-                                               self.mpHands.HAND_CONNECTIONS)
+                    self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS)
 
         return img
 
@@ -54,8 +52,7 @@ class handDetector():
             bbox = xmin, ymin, xmax, ymax
 
             if draw:
-                cv2.rectangle(img, (xmin - 20, ymin - 20), (xmax + 20, ymax + 20),
-                              (0, 255, 0), 2)
+                cv2.rectangle(img, (xmin - 20, ymin - 20), (xmax + 20, ymax + 20),(0, 255, 0), 2)
 
         return self.lmList, bbox
 
@@ -97,7 +94,7 @@ class handDetector():
 def main():
     pTime = 0
     cTime = 0
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
     detector = handDetector()
     while True:
         success, img = cap.read()
@@ -117,5 +114,5 @@ def main():
         cv2.waitKey(1)
 
 
-#if _name_ == "_main_":
-    #main()
+if __name__ == "__main__":
+    main()
