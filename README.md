@@ -1,4 +1,4 @@
-Download the application from: https://t.me/virtual_mouse
+
 
 ⚡Mouse Features:
 
